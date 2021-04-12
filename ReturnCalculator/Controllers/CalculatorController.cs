@@ -14,15 +14,24 @@ namespace ReturnCalculator.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            ViewBag.Message = "Yo is this actuall working?";
             return View();
         }
 
         [HttpPost]
         public IActionResult Index(Models.Calculator model)
         {
-            model.CalculateReturn();
+            if (!ModelState.IsValid)
+            {
+                ModelState.Remove("AnnualContribution");
+                ModelState.Remove("Inflation");
+            }
+            if (ModelState.IsValid)
+            {
+                model.CalculateReturn();
+                ViewData["TimeAmountArr"] = model.timeAmountArr;
+                ViewData["RateOfReturn"] = model.RateOfReturn;
+
+            }
             return View(model);
         }
     }

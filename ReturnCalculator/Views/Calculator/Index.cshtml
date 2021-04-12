@@ -1,39 +1,53 @@
 ﻿@model Calculator
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var viewBagContent = @Html.Raw(Json.Serialize(ViewBag.TimeAmountArr));
+        if (viewBagContent != null) {
+            DrawGraph(viewBagContent)
+        }
+    });
+</script>
 
-    <div id="container" style="width:100%; height:400px;"></div>
+<div class="container-fluid align-items-center">
 
+    <h1 class="text-info px-2">Calculate Rate of Return!</h1>
+    <form asp-controller="Calculator" asp-action="Index" method="post" class="mx-auto">
+        <div class="form-group">
+            <div class="row">
+                <label asp-for="InitialAmount" class="col-lg-2"></label>
+                <input type="number" step="0.01" asp-for="InitialAmount" class="col-lg-2" />
+                <span asp-validation-for="InitialAmount" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label asp-for="TargetAmount" class="col-lg-2"></label>
+                <input type="number" step="0.01" asp-for="TargetAmount" class="col-lg-2" />
+                <span asp-validation-for="TargetAmount" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label asp-for="ContributionYears" class="col-lg-2"></label>
+                <input type="number" asp-for="ContributionYears" class="col-lg-2" />
+                <span asp-validation-for="ContributionYears" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label asp-for="AnnualContribution" class="col-lg-2"></label>
+                <input type="number" step="0.01" asp-for="AnnualContribution" class="col-lg-2" />
+            </div>
+            <div class="row">
+                <label asp-for="Inflation" class="col-lg-2"></label>
+                <input type="number" step="0.01" asp-for="Inflation" class="col-lg-2" />
+            </div>
 
+            <div class="row btn btn-primary justify-content-center">
+                <input type="submit" value="Calculate" asp-action="Index" />
+            </div>
+        </div>
+    </form>
 
-<form asp-controller="Calculator" asp-action="Index" method="post">
-    <div class="form-group">
-        <div class="row">
-            <label asp-for="InitialAmount" class="col-lg-2"></label>
-            <input type="number" step="0.05" asp-for="InitialAmount" class="col-lg-2" />
-        </div>
-        <div class="row">
-            <label asp-for="TargetAmount" class="col-lg-2"></label>
-            <input type="number" asp-for="TargetAmount" class="col-lg-2" />
-        </div>
-        <div class="row">
-            <label asp-for="ContributionYears" class="col-lg-2"></label>
-            <input type="number" asp-for="ContributionYears" class="col-lg-2" />
-        </div>
-        <div class="row">
-            <label asp-for="AnnualContribution" class="col-lg-2"></label>
-            <input type="number" asp-for="AnnualContribution" class="col-lg-2" />
-        </div>
-        <div class="row">
-            <label asp-for="Inflation" class="col-lg-2"></label>
-            <input type="number" asp-for="Inflation" class="col-lg-2" />
-        </div>
-        
-        <div class="row">
-            <label asp-for="RateOfReturn" class="col-lg-2"></label>
-            <input type="number" disabled="disabled" class="col-lg-2" asp-for="RateOfReturn" />
-        </div>
-        <div class="row">
-            <input type="submit" value="Calculate" asp-action="Index" />
-        </div>
-    </div>
-</form> 
+    @if (ViewBag.TimeAmountArr != null)
+    {
+        <div>You need a <span class="text-primary">@ViewBag.RateOfReturn %</span>  rate of return to achieve this investment goal</div>
+        <div id="graph-container" style="width:100%; height:400px;"></div>
+    }
+</div>

@@ -7,4 +7,9 @@
   <ItemGroup>
     <Folder Include="Views\Calculator\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FormFactory" Version="5.0.77" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+  </ItemGroup>
 </Project>

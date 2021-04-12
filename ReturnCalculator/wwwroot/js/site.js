@@ -2,28 +2,26 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-document.addEventListener('DOMContentLoaded', function () {
-    const chart = Highcharts.chart('container', {
+function DrawGraph(detailsArr) {
+    const chart = Highcharts.chart('graph-container', {
         chart: {
-            type: 'bar'
+            type: 'line'
         },
         title: {
-            text: 'Fruit Consumption'
+            text: 'Investment Growth'
         },
         xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            title: { text: 'Time (in years)' },
+            categories: Array(detailsArr.length).fill().map((_, idx) => idx + 1)
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: 'Total Amount (in USD)'
             }
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            name: 'Investment Value',
+            data: detailsArr
         }]
     });
-});
+}

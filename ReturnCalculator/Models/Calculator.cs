@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormFactory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,32 +7,32 @@ namespace ReturnCalculator.Models
 {
     public class Calculator
     {
-        
-        [Required]
+        [Required(AllowEmptyStrings = false ,ErrorMessage = "Initial Amount (in USD) is required")]
         [Display(Name = "Initial Amount")]
         public double InitialAmount { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Target Amount (in USD) is required")]
         [Display(Name = "Target Amount")]
         public double TargetAmount { get; set; }
 
-        [Required]
-        [Display(Name = "Years to reach target")]
-        public double ContributionYears { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Contribution years (a positive integer) is required")]
+        [Display(Name = "Contribution Years")]
+        public double ContributionYears { get; set; }
+        
+        [Required(AllowEmptyStrings = true)]
         [Display(Name = "Annual Contribution")]
         public double AnnualContribution { get; set; }
 
-        [Required]
-        [Range(0,100)]
+        [Required(AllowEmptyStrings = true)]
         [Display(Name = "Inflation")]
         public double Inflation { get; set; }
 
-        [Display(Name = "Rate of Return")]
         public double RateOfReturn { get; set; }
 
         public Dictionary<int, double> timeAmountDict = new Dictionary<int, double>();
+        public double[] timeAmountArr;
+        public string JavascriptToRun { get; set; }
         public Calculator()
         {
 
@@ -40,22 +41,21 @@ namespace ReturnCalculator.Models
         public void CalculateReturn()
         {
             double annualizedRor = (Math.Pow(this.TargetAmount / this.InitialAmount, (1 / this.ContributionYears)) - 1);
-            double rorAfterInflation = (1 + annualizedRor) / (1+(this.Inflation/100));
-            Dictionary<int, double> allRateOfReturn = new Dictionary<int, double>();
-            double tot = 0;
+            //double rorAfterInflation = (1 + annualizedRor) / (1+(this.Inflation/100));
+            this.timeAmountArr = new double[(int)this.ContributionYears];
             for(int year = 0; year < this.ContributionYears; year++)
             {
-                tot += this.AnnualContribution / Math.Pow(1 + annualizedRor, year);
+                double prevValue = year == 0 ? this.InitialAmount : this.timeAmountDict[year - 1];
 
-                //double prevValue = year == 0 ? this.InitialAmount : this.timeAmountDict[year - 1];
-
-                //double interestEarned = prevValue * rorAfterInflation;
-                //double totalAmount = prevValue + interestEarned + this.AnnualContribution;
-                //this.timeAmountDict.Add(year, totalAmount);
-                
+                double interestEarned = prevValue * annualizedRor;
+                double totalAmount = Math.Round(prevValue + interestEarned + this.AnnualContribution, 2, MidpointRounding.AwayFromZero);
+                this.timeAmountDict.Add(year, totalAmount);
+                this.timeAmountArr[year] = totalAmount;
             }
-            this.RateOfReturn = rorAfterInflation;
+            this.RateOfReturn = Math.Round(annualizedRor * 100, 2, MidpointRounding.AwayFromZero);
+           
         }
+
 
     }
 }
