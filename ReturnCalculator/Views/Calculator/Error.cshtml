@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container-fluid align-self-center alert alert-warning alert-dismissible fade show">
+    <h4 class="alert-heading"><i class="fa fa-warning"></i> No result found!</h4>
+    <p class="lead">We were not able to find any results for the values you provided. Please close this box to go back and run the program again with different values.</p>
+    <hr>
+    <p class="mb-0">This program does not handle very large contribution years.</p>
+    <button type="button" class="close" data-dismiss="alert" onclick="window.history.back();">&times;</button>
+</div>

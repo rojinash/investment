@@ -12,7 +12,7 @@ function DrawGraph(detailsArr) {
         },
         xAxis: {
             title: { text: 'Time (in years)' },
-            categories: Array(detailsArr.length).fill().map((_, idx) => idx + 1)
+            categories: Array(detailsArr.length).fill().map((_, idx) => idx )
         },
         yAxis: {
             title: {

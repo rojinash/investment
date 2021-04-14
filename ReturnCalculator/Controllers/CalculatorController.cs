@@ -20,19 +20,19 @@ namespace ReturnCalculator.Controllers
         [HttpPost]
         public IActionResult Index(Models.Calculator model)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.Remove("AnnualContribution");
-                ModelState.Remove("Inflation");
-            }
             if (ModelState.IsValid)
             {
                 model.CalculateReturn();
-                ViewData["TimeAmountArr"] = model.timeAmountArr;
+                if (model.RateOfReturn == 0)
+                {
+                    return View("Error");
+                }
+                ViewData["TimeAmountArr"] = model.TimeAmountArr;
                 ViewData["RateOfReturn"] = model.RateOfReturn;
 
             }
             return View(model);
+            
         }
     }
 }

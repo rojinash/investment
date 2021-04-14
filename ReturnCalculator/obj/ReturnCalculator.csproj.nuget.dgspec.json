@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rojina\\Source\\Repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj": {}
+    "C:\\Users\\rojina\\source\\repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rojina\\Source\\Repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj": {
+    "C:\\Users\\rojina\\source\\repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rojina\\Source\\Repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj",
+        "projectUniqueName": "C:\\Users\\rojina\\source\\repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj",
         "projectName": "ReturnCalculator",
-        "projectPath": "C:\\Users\\rojina\\Source\\Repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj",
+        "projectPath": "C:\\Users\\rojina\\source\\repos\\investment\\ReturnCalculator\\ReturnCalculator.csproj",
         "packagesPath": "C:\\Users\\rojina\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rojina\\Source\\Repos\\investment\\ReturnCalculator\\obj\\",
+        "outputPath": "C:\\Users\\rojina\\source\\repos\\investment\\ReturnCalculator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\rojina\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,9 +44,17 @@
               "target": "Package",
               "version": "[5.0.77, )"
             },
+            "MathNet.Numerics": {
+              "target": "Package",
+              "version": "[4.15.0, )"
+            },
             "Microsoft.AspNet.Mvc": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             }
           },
           "imports": [
