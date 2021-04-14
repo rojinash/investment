@@ -29,7 +29,7 @@ namespace ReturnCalculator.Models
         public double AnnualContribution { get; set; }
 
         [Required(ErrorMessage = "Inflation (in percentage) is required")]
-        [Range(0.01, 100)]
+        [Range(0.00, 100)]
         [Display(Name = "Inflation (%): ")]
         public double Inflation { get; set; }
 
